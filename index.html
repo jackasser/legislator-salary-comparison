@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界の国会議員の給料くらべ</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-6xl mx-auto p-4 bg-gray-50 rounded-xl shadow-md my-8">
+        <div class="mb-8 bg-white p-6 rounded-lg shadow">
+            <h1 class="text-3xl font-bold text-center mb-4 text-blue-700">世界の国会議員の給料くらべ 🌍</h1>
+            <p class="text-lg mb-2">
+                世界の国会議員がもらう<span class="font-bold">年収（1年間の給料）</span>と国民の平均年収を比べてみよう！
+            </p>
+        </div>
+
+        <!-- 国会議員年収グラフ -->
+        <div class="mb-8 bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">各国の国会議員の年収</h2>
+            <div class="relative" style="height: 400px;">
+                <canvas id="salaryChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- 国民平均年収グラフ -->
+        <div class="mb-8 bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">各国の国民平均年収</h2>
+            <div class="relative" style="height: 400px;">
+                <canvas id="averageSalaryChart"></canvas>
+            </div>
+        </div>
+        
+        <!-- 平均年収比較グラフ -->
+        <div class="mb-8 bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">国会議員は国民の平均年収の何倍もらっている？</h2>
+            <div class="relative" style="height: 400px;">
+                <canvas id="ratioChart"></canvas>
+            </div>
+            
+            <div class="mt-4 p-4 bg-indigo-50 rounded-lg border border-indigo-200">
+                <p class="text-center">
+                    <span class="font-semibold">日本</span>の国会議員は国民平均の<span class="text-xl font-bold text-indigo-700">6.6倍</span>の給料をもらっています！<br/>
+                    一方、<span class="font-semibold">ドイツ</span>の国会議員は国民平均の<span class="text-lg font-bold text-indigo-700">わずか1.6倍</span>しかもらっていません。
+                </p>
+            </div>
+        </div>
+
+        <!-- 国別詳細情報 -->
+        <div class="mb-8 bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">国別の詳しい情報を見てみよう！</h2>
+            
+            <div class="flex flex-wrap gap-2 mb-4" id="countryButtons">
+                <!-- ここにボタンが動的に挿入されます -->
+            </div>
+            
+            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200" id="countryDetails">
+                <!-- ここに国の詳細情報が動的に挿入されます -->
+            </div>
+        </div>
+
+        <!-- 自分で計算してみよう -->
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">自分で計算してみよう！</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-semibold mb-2">
+                            あなたの年収（万円）
+                            <input
+                                type="range"
+                                min="100"
+                                max="3000"
+                                value="300"
+                                id="customSalarySlider"
+                                class="w-full h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer"
+                            />
+                            <div class="flex justify-between">
+                                <span>100万円</span>
+                                <span class="font-bold text-blue-600" id="customSalaryValue">300万円</span>
+                                <span>3000万円</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                    <h3 class="text-xl font-bold mb-4 text-center text-purple-800">計算結果</h3>
+                    <div class="text-center">
+                        <div class="mt-2">
+                            <p class="text-gray-600">日本の平均年収（<span id="japanAverageSalary">457</span>万円）との比較</p>
+                            <p class="text-2xl font-bold text-amber-600" id="customSalaryRatio">0.7倍</p>
+                        </div>
+                        
+                        <div class="mt-6 pt-4 border-t border-purple-200">
+                            <p class="text-gray-600">国会議員の年収（3,014万円）との比較</p>
+                            <p class="text-3xl font-bold text-red-600" id="mpRatio">10.0分の1</p>
+                            <p class="mt-2 text-lg font-semibold">
+                                国会議員はあなたの
+                                <span class="mx-1 text-red-600" id="mpRatioText">10.0倍</span>
+                                の給料をもらっています
+                            </p>
+                        </div>
+                        
+                        <div class="mt-6 pt-4 border-t border-purple-200" id="salaryDifference">
+                            <!-- ここに差額の情報が動的に挿入されます -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
